@@ -1,20 +1,37 @@
-import Form from "./components/Form";
-import State from "./components/State";
 
+import {
+    Routes,
+    Route,
+    Navigate
+} from "react-router-dom";
+import Layout from "./components/Layout";
+import PostsList from "./components/State";
+import SinglePostPage from "./components/SinglePostPage";
+import UpdatePostForm from "./components/UpdatePostForm ";
+import PostForm from "./components/PostForm";
+import UsersList from "./components/UsersList";
+import UserPage from "./pages/UserPage";
 
 function App() {
     return (
-        <main className="max-w-2xl  mx-auto">
-            <h1 className='text-center font-bold text-xl'>Posts</h1>
+        <Routes>
+            <Route path='/' element={<Layout />}>
+                <Route index element={<PostsList />} />
 
-            <section className='grid grid-cols-1 md:grid-cols-2 mx-5 sm:mx-3 md:mx-0 gap-7 place-items-center mt-10   items-start'>
-                <State/>
-                <span className='hidden md:inline-flex  w-full'>
-                    <Form/>
-                </span>
+                <Route path="post">
+                    <Route index element={<PostForm />} />
+                    <Route path=':postId' element={<SinglePostPage />} />
+                    <Route path="edit/:postId" element={<UpdatePostForm />} />
+                </Route>
 
-            </section>
-        </main>
+                <Route path="user">
+                    <Route index element={<UsersList />} />
+                    <Route path=":userId" element={<UserPage />} />
+                </Route>
+
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+        </Routes>
     );
 }
 

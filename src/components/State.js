@@ -1,35 +1,36 @@
-import React from 'react';
-import {useSelector} from "react-redux";
-import {selectAllPosts} from "../redux/slices/posts/postsSlices";
-import PostsAuthor from "../redux/slices/postsAuthor/postsAuthor";
-import TimeAgo from "./TimeAgo";
-import ReactionButton from "./Reaction";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPosts, selectAllPosts, selectPostsError, selectPostsStatus} from "../redux/slices/posts/postsSlices";
+import PostCart from "./PostCart";
 
-const State = () => {
-    const data = useSelector(selectAllPosts)
 
-    const orderedPosts = data.slice().sort((a,b) => b.date.localeCompare(a.date))
+const PostsList = () => {
+    const dispatch = useDispatch()
+
+    const posts = useSelector(selectAllPosts)
+    const status = useSelector(selectPostsStatus)
+
+
+    useEffect(() => {
+        if (status === "idle") {
+            dispatch(fetchPosts())
+        }
+    }, [status, dispatch])
+
+    if (status === "loaded") {
+        return <div>Loading..</div>
+    }
+
+
+    const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+
 
     return (
-        <section >
-            {orderedPosts.map(post => (
-                <article
-                    className='w-6/3 min-h-100px] border border-indigo-500 p-3 shadow-xl
-                        hover:shadow-indigo-500/40 hover:bg-gray-700 hover:text-indigo-300 hover:border-indigo-400  mb-5'
-                    key={post.id}>
-
-                    <span className='flex mb-3'> title: <h3 className='ml-3 text-sm  '>{post.title}</h3></span>
-                    <h3>{post.content}</h3>
-                    <span className="text-xs italic">
-                        <PostsAuthor userId={post.userID} />
-                    </span>
-                    <TimeAgo timeStep={post.date} />
-                    <ReactionButton post={post} />
-
-                </article>
-            ))}
-        </section>
+        <>
+            <section className='grid gap-4 mx-auto sm:grid-cols-1 md:grid-cols-2 container mt-10'>
+                {orderedPosts.map(post =>  <PostCart post={post} key={post.id} />)}
+            </section>
+        </>
     );
 };
-
-export default State;
+export default PostsList;

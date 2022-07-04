@@ -39,8 +39,8 @@ const UpdatePostForm = () => {
 
     const onDeletePostClick = () => {
         try {
-            setAddRequestStatus("pending")
-            dispatch(deletePost({id: post.id})).unwrap()
+            console.log(post.id)
+            dispatch(deletePost({ id: post.id })).unwrap()
             navigate(`/`)
         } catch (err) {
             console.log("error")
@@ -92,14 +92,14 @@ const UpdatePostForm = () => {
                 >
                     Save Post
                 </button>
-                <button
-                    onClick={() => onDeletePostClick()}
-                    className='block w-full mx-auto font-bold  mt-10 shadow-lg tracking-wide
-                    hover:shadow-red-400  border border-amber-700 py-1 hover:bg-amber-700 hover:text-black'
-                    type="button"
-                >
-                    Delete Post
-                </button>
+                {/*<button*/}
+                {/*    onClick={() => onDeletePostClick()}*/}
+                {/*    className='block w-full mx-auto font-bold  mt-10 shadow-lg tracking-wide*/}
+                {/*    hover:shadow-red-400  border border-amber-700 py-1 hover:bg-amber-700 hover:text-black'*/}
+                {/*    type="button"*/}
+                {/*>*/}
+                {/*    Delete Post*/}
+                {/*</button>*/}
 
             </form>
 

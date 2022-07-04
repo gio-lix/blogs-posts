@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import PostsList from "./components/State";
-import SinglePostPage from "./components/SinglePostPage";
+import SinglePostPage from "./pages/SinglePostPage";
 import UpdatePostForm from "./components/UpdatePostForm ";
 import PostForm from "./components/PostForm";
 import UsersList from "./components/UsersList";

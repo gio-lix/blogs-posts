@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addNewPost} from "../redux/slices/posts/postsSlices";
 import {selectAllUsers} from "../redux/slices/users/userSlice";
@@ -9,6 +10,8 @@ const PostForm = () => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [userID, setUserID] = useState('')
+    let navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -18,9 +21,9 @@ const PostForm = () => {
                 setTitle("")
                 setContent("")
                 setUserID("")
+                navigate('/')
             } catch (err) {
                 console.log("fail")
-            }finally {
             }
         }
     }
